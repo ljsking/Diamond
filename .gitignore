@@ -16,3 +16,16 @@ src/*.egg-info
 .tox
 gentoo/diamond-*.ebuild
 .vagrant
+
+bin/activate*
+bin/pip*
+bin/python*
+bin/easy_install*
+bin/wheel
+diamond.pid
+lib/
+include/
+pip-selfcheck.json
+
+*.swp
+bin/pbr
