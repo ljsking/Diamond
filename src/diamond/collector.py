@@ -97,6 +97,13 @@ def get_hostname(config, method=None):
             raise DiamondException('Hostname is empty?!')
         return hostname
 
+    if method == 'worksmobile':
+        hostname = '_'.join(os.uname()[1].split('.')[:2])
+        get_hostname.cached_results[method] = hostname
+        if hostname == '':
+            raise DiamondException('Hostname is empty?!')
+        return hostname
+
     if method == 'uname_rev':
         hostname = os.uname()[1].split('.')
         hostname.reverse()

@@ -54,7 +54,7 @@ days = 7
 ### Options for GraphiteHandler
 
 # Graphite server host
-host = 10.113.187.8
+host = 10.114.26.137
 
 # Port to send metrics to
 port = 2003
@@ -95,13 +95,13 @@ batch = 1
 # shell             = Run the string set in hostname as a shell command and use its
 #                     output(with spaces trimmed off from both ends) as the hostname.
 
-# hostname_method = smart
+hostname_method = worksmobile
 
 # Path Prefix and Suffix
 # you can use one or both to craft the path where you want to put metrics
 # such as: %(path_prefix)s.$(hostname)s.$(path_suffix)s.$(metric)s
-# path_prefix = servers
-# path_suffix =
+path_prefix = nsmtp.staging
+# path_suffix = nsmtp.staging
 
 # Path Prefix for Virtual Machines
 # If the host supports virtual machines, collectors may report per
@@ -136,10 +136,15 @@ enabled = True
 enabled = True
 
 [[ShellCollector]]
-enabled = True
+enabled = False
 [[[scripts]]]
 processes = 'ps -ef | wc -l'
 log_lines = "wc -l /home1/irteam/ljsking/Diamond/diamond.log | cut -d ' ' -f1"
+
+[[CarbonCollector]]
+enabled = True
+exclude = 'config',
+gauge = 'statistics.pool', 'statistics.active'
 
 ################################################################################
 ### Options for logging
