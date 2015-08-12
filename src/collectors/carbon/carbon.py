@@ -58,10 +58,10 @@ class CarbonCollector(diamond.collector.Collector):
                             if exec_cnt > 0:
                                 self.publish(path, cnt / exec_cnt)
                         else:
-                            self.publish(path, cnt)
+                            if cnt >= 0:
+                                self.publish(path, cnt)
                 except ValueError:
                     self.log.exception('%s %s'%(path, data))
-                    pass
             elif isinstance(data, dict):
                 self.walk(data, pre[k], path)
 

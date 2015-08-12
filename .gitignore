@@ -29,3 +29,5 @@ pip-selfcheck.json
 
 *.swp
 bin/pbr
+
+*.log.*

@@ -462,6 +462,28 @@ class TestCarbonCollector(CollectorTestCase):
         self.collector._predata = PRE
         self.collector.collect()
         assert len(publish.call_args_list)
-        print publish.call_args_list
-        #assert publish.call_args_list[0][0][0] == 'smtp.active'
-        #assert publish.call_args_list[0][0][1] == 0.0
+
+    @patch.object(Collector, 'publish')
+    def test_reset_monitoring_data(self, publish):
+        pre = {
+            "module": {
+                "NSMTPHandler": {
+                    "command": {
+                        "elapsed": "2000",
+                        "exec": "1000"
+                    }}}
+        }
+        now = {
+            "module": {
+                "NSMTPHandler": {
+                    "command": {
+                        "elapsed": "0",
+                        "exec": "0"
+            }}}
+        }
+        mock = Mock(self.collector.entries)
+        self.collector.entries = mock
+        mock.return_value = now
+        self.collector._predata = pre
+        self.collector.collect()
+        assert not publish.called
